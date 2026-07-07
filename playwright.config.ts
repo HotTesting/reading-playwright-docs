@@ -39,6 +39,9 @@ export default defineConfig({
       attachments: false,
     },
   },
+  // expect: {
+  //   timeout: 15000,
+  // },
 
   /* Configure projects for major browsers */
   projects: [

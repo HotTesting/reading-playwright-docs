@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Expect Examples</title>
+  <style>
+    #hidden {
+      display: none;
+    }
+
+    #styled {
+      color: rgb(255, 0, 0);
+      font-size: 16px;
+    }
+
+    .highlight {
+      background-color: rgb(255, 255, 0);
+    }
+
+    .bold {
+      font-weight: 700;
+    }
+
+    #in-viewport {
+      height: 40px;
+      background-color: rgb(173, 216, 230);
+    }
+
+    #screenshot-box {
+      width: 100px;
+      height: 50px;
+      background-color: rgb(76, 175, 80);
+      color: rgb(255, 255, 255);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #below-viewport {
+      margin-top: 2000px;
+      height: 40px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Expect Examples</h1>
+
+  <div id="attached" data-testid="attached">Attached element</div>
+
+  <label>
+    <input type="checkbox" id="checked" data-testid="checked" checked>
+    Checked checkbox
+  </label>
+
+  <button id="disabled" data-testid="disabled" disabled>Disabled button</button>
+
+  <input type="text" id="editable" data-testid="editable" value="editable">
+
+  <div id="empty" data-testid="empty"></div>
+
+  <button id="enabled" data-testid="enabled">Enabled button</button>
+
+  <input type="text" id="focus-target" data-testid="focus-target">
+
+  <div id="hidden" data-testid="hidden">Hidden content</div>
+
+  <div id="in-viewport" data-testid="in-viewport">In viewport</div>
+
+  <p id="visible" data-testid="visible">Visible paragraph</p>
+
+  <div id="contain-text" data-testid="contain-text">Hello Playwright World</div>
+
+  <div id="with-classes" data-testid="with-classes" class="highlight bold">Styled box</div>
+
+  <button
+    id="with-description"
+    data-testid="with-description"
+    aria-label="Save"
+    aria-description="Saves your changes"
+  >
+    Save
+  </button>
+
+  <img
+    id="with-name"
+    data-testid="with-name"
+    alt="Company logo"
+    src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+  >
+
+  <a id="with-attr" data-testid="with-attr" href="https://example.com">Example link</a>
+
+  <ul id="list" data-testid="list">
+    <li>One</li>
+    <li>Two</li>
+    <li>Three</li>
+  </ul>
+
+  <span id="styled" data-testid="styled">Red text</span>
+
+  <nav id="navigation" data-testid="navigation">Main navigation</nav>
+
+  <div id="screenshot-box" data-testid="screenshot-box">Box</div>
+
+  <h2 id="exact-text" data-testid="exact-text">Exact Title</h2>
+
+  <input type="text" id="input-value" data-testid="input-value" value="hello">
+
+  <select id="multi-select" data-testid="multi-select" multiple>
+    <option value="a" selected>A</option>
+    <option value="b" selected>B</option>
+    <option value="c">C</option>
+  </select>
+
+  <section id="aria-snapshot" data-testid="aria-snapshot" aria-label="User profile">
+    <h3>John Doe</h3>
+    <p>Developer</p>
+  </section>
+
+  <div id="below-viewport" data-testid="below-viewport">Below viewport</div>
+</body>
+</html>
