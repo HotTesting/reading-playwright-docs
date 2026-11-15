@@ -1,26 +1,44 @@
-import { defineConfig, devices } from '@playwright/test';
+import { defineConfig, devices, type PlaywrightTestConfig } from '@playwright/test';
+
+const getReportersArray = () => {
+  const reporters: PlaywrightTestConfig['reporter'] = [
+    ['list'],
+  ];
+
+  if (process.env.CI === 'true') { 
+    reporters.push(['json'])
+  }
+  return reporters;
+}
+// reporter: getReportersArray(),
 
 export default defineConfig({
+  captureGitInfo: { commit: true, diff: true },
   testDir: './tests',
   testMatch: /.*\.test\.ts/,
-  fullyParallel: false,
+  fullyParallel: true,
   forbidOnly: true,
   retries: 0,
-  workers: 1,
-  reporter: 'html',
+  workers: 2,
   use: {
     headless: false,
   },
+  reporter: [
+    ['html', 
+      {
+        title: 'Hello Reading Playwright Docs guys!',
+        mergeFiles: false,
+         open: 'never',
+        // onlyFailures: true,
+        // outputFolder: 'reports/playwright-report-' + Date.now(),
+      }
+    ],
+    ['github', { omitTags: true }]
+  ],
   projects: [
     {
-      name: 'chromium',
+      name: 'chrome',
       use: { ...devices['Desktop Chrome'] },
-    },
-        {
-      name: 'firefox',
-      default: false,
-      
-      use: { ...devices['Desktop Firefox'] },
     },
   ],
 });

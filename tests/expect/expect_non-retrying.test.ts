@@ -1,80 +1,125 @@
 import { test, expect } from '@playwright/test';
 
-test('expect non-retrying', () => {
-    // Value is the same
+test('string value is the same', () => {
     expect('Playwright').toBe('Playwright');
+});
+
+test('number value is the same', () => {
     expect(42).toBe(42);
+});
 
-    // Number is approximately equal
+test('number is approximately equal', () => {
     expect(0.1 + 0.2).toBeCloseTo(0.3, 5);
+});
 
-    // Value is not undefined
+test('value is defined', () => {
     expect('defined').toBeDefined();
+});
 
-    // Value is falsy
+test('false is falsy', () => {
     expect(false).toBeFalsy();
+});
+
+test('zero is falsy', () => {
     expect(0).toBeFalsy();
+});
+
+test('null is falsy', () => {
     expect(null).toBeFalsy();
+});
 
-    // Number is more than
+test('number is greater than another number', () => {
     expect(10).toBeGreaterThan(5);
+});
 
-    // Number is more than or equal
+test('number is greater than or equal to another number', () => {
     expect(10).toBeGreaterThanOrEqual(10);
+});
 
-    // Object is an instance of a class
+test('object is an instance of a class', () => {
     expect(new Date('2024-01-01')).toBeInstanceOf(Date);
+});
 
-    // Number is less than
+test('number is less than another number', () => {
     expect(3).toBeLessThan(7);
+});
 
-    // Number is less than or equal
+test('number is less than or equal to another number', () => {
     expect(7).toBeLessThanOrEqual(7);
+});
 
-    // Value is NaN
+test('value is NaN', () => {
     expect(Number('not-a-number')).toBeNaN();
+});
 
-    // Value is null
+test('value is null', () => {
     expect(null).toBeNull();
+});
 
-    // Value is truthy
+test('string is truthy', () => {
     expect('hello').toBeTruthy();
+});
+
+test('number is truthy', () => {
+    test.step('my test step', () => {   
+
     expect(1).toBeTruthy();
+    });
+});
 
-    // Value is undefined
+test('value is undefined', () => {
     expect(undefined).toBeUndefined();
+});
 
-    // String contains a substring
+test('string contains a substring', () => {
     expect('Hello Playwright').toContain('Playwright');
+});
 
-    // Array or set contains an element
+test('array contains an element', () => {
     expect(['a', 'b', 'c']).toContain('b');
+});
+
+test('set contains an element', () => {
     expect(new Set(['x', 'y'])).toContain('x');
+});
 
-    // Array or set contains a similar element
+test('array contains a similar element', () => {
     expect([{ id: 1, name: 'Alice' }, { id: 2, name: 'Bob' }]).toContainEqual({ id: 2, name: 'Bob' });
+});
 
-    // Value is similar - deep equality and pattern matching
+test('value matches with deep equality', () => {
     expect({ status: 'ok', count: 3 }).toEqual({ status: 'ok', count: 3 });
+});
+
+test('value matches an object pattern', () => {
     expect({ id: 1, name: 'Alice', extra: true }).toEqual(expect.objectContaining({ id: 1, name: 'Alice' }));
+});
 
-    // Array or string has length
+test('string has the expected length', () => {
     expect('Playwright').toHaveLength(10);
+});
+
+test('array has the expected length', () => {
     expect([1, 2, 3]).toHaveLength(3);
+});
 
-    // Object has a property
+test('object has a property with the expected value', () => {
     expect({ name: 'Playwright', version: 1 }).toHaveProperty('name', 'Playwright');
+});
 
-    // String matches a regular expression
+test('string matches a regular expression', () => {
     expect('test@example.com').toMatch(/@example\.com$/);
+});
 
-    // Object contains specified properties
+test('object contains specified properties', () => {
     expect({ id: 1, name: 'Alice', role: 'admin' }).toMatchObject({ name: 'Alice', role: 'admin' });
+});
 
-    // Value is similar, including property types
+test('value is strictly equal, including property types', () => {
     expect({ count: 1 }).toStrictEqual({ count: 1 });
+});
 
-    // Function throws an error
+test('function throws an error', () => {
     expect(() => {
         throw new Error('Something went wrong');
     }).toThrow('Something went wrong');

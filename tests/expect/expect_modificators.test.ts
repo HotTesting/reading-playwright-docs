@@ -1,114 +1,127 @@
 import { test, expect } from '@playwright/test';
 
-test('expect asymmetric matchers', () => {
-    // expect.any() - Matches any instance of a class/primitive
-    // With asymmetric matcher
+
+
+test('expect.any matches a Date instance', () => {
     expect({ id: 1, createdAt: new Date('2024-06-01') }).toEqual({
         id: 1,
         createdAt: expect.any(Date),
     });
+});
 
-    // Without asymmetric matcher
+test('Date value matches directly without expect.any', () => {
     expect({ id: 1, createdAt: new Date('2024-06-01') }).toEqual({
         id: 1,
         createdAt: new Date('2024-06-01'),
     });
+});
 
-    // expect.anything() - Matches anything
-    // With asymmetric matcher
+test('expect.anything matches a defined payload', () => {
     expect({ id: 1, payload: { nested: true } }).toEqual({
         id: 1,
         payload: expect.anything(),
     });
+});
 
-    // Without asymmetric matcher
+test('payload value matches directly without expect.anything', () => {
     expect({ id: 1, payload: { nested: true } }).toEqual({
         id: 1,
         payload: { nested: true },
     });
+});
 
-    // expect.arrayContaining() - Array contains specific elements
-    // With asymmetric matcher
+test('expect.arrayContaining matches selected elements', () => {
     expect(['a', 'b', 'c', 'd']).toEqual(expect.arrayContaining(['b', 'c']));
+});
 
-    // Without asymmetric matcher
+test('array contains b directly', () => {
     expect(['a', 'b', 'c', 'd']).toContain('b');
+});
+
+test('array contains c directly', () => {
     expect(['a', 'b', 'c', 'd']).toContain('c');
+});
 
-    // expect.arrayOf() - Array contains elements of specific type
-    // With asymmetric matcher (works in Playwright)
+test('expect.arrayOf matches numbers with expect.any(Number)', () => {
     expect([1, 2, 3]).toEqual(expect.arrayOf(expect.any(Number)));
+});
+
+test('expect.arrayOf matches strings with expect.any(String)', () => {
     expect(['a', 'b', 'c']).toEqual(expect.arrayOf(expect.any(String)));
+});
 
-    // Without asymmetric matcher
+test('array values match directly without expect.arrayOf', () => {
     expect([1, 2, 3]).toEqual([1, 2, 3]);
+});
 
-    // expect.closeTo() - Number is approximately equal
-    // With asymmetric matcher
+test('expect.closeTo matches an approximate number', () => {
     expect({ average: 0.1 + 0.2 }).toEqual({ average: expect.closeTo(0.3, 5) });
+});
 
-    // Without asymmetric matcher
+test('toBeCloseTo matches an approximate number directly', () => {
     expect(0.1 + 0.2).toBeCloseTo(0.3, 5);
+});
 
-    // expect.objectContaining() - Object contains specific properties
-    // With asymmetric matcher
+test('expect.objectContaining matches selected properties', () => {
     expect({ id: 1, name: 'Alice', role: 'admin' }).toEqual(
         expect.objectContaining({ name: 'Alice', role: 'admin' }),
     );
+});
 
-    // Without asymmetric matcher
+test('object properties match directly without expect.objectContaining', () => {
     expect({ id: 1, name: 'Alice', role: 'admin' }).toEqual({
         id: 1,
         name: 'Alice',
         role: 'admin',
     });
+});
 
-    // expect.stringContaining() - String contains a substring
-    // With asymmetric matcher
+test('expect.stringContaining matches a substring', () => {
     expect({ message: 'Hello Playwright' }).toEqual({
         message: expect.stringContaining('Playwright'),
     });
+});
 
-    // Without asymmetric matcher
+test('message matches directly without expect.stringContaining', () => {
     expect({ message: 'Hello Playwright' }).toEqual({
         message: 'Hello Playwright',
     });
+});
 
-    // expect.stringMatching() - String matches a regular expression
-    // With asymmetric matcher
+test('expect.stringMatching matches a regular expression', () => {
     expect({ email: 'alice@example.com' }).toEqual({
         email: expect.stringMatching(/@example\.com$/),
     });
+});
 
-    // Without asymmetric matcher
+test('email matches directly without expect.stringMatching', () => {
     expect({ email: 'alice@example.com' }).toEqual({
         email: 'alice@example.com',
     });
 });
 
-test('validate fake API response with asymmetric matchers', () => {
-    // Simulates: const response = await request.get('/api/users/42'); const body = await response.json();
-    const apiResponse = {
-        id: 42,
-        email: 'alice@example.com',
-        name: 'Alice Johnson',
-        role: 'admin',
-        createdAt: '2024-06-15T10:30:00.000Z',
-        updatedAt: '2024-06-20T14:22:11.503Z',
-        tags: ['premium', 'verified', 'newsletter'],
-        stats: {
-            ordersCount: 12,
-            totalSpent: 249.99,
-            averageRating: 4.73,
-        },
-        preferences: {
-            theme: 'dark',
-            locale: 'uk-UA',
-            notifications: true,
-        },
-    };
+// Simulates: const response = await request.get('/api/users/42'); const body = await response.json();
+const apiResponse = {
+    id: 42,
+    email: 'alice@example.com',
+    name: 'Alice Johnson',
+    role: 'admin',
+    createdAt: '2024-06-15T10:30:00.000Z',
+    updatedAt: '2024-06-20T14:22:11.503Z',
+    tags: ['premium', 'verified', 'newsletter'],
+    stats: {
+        ordersCount: 12,
+        totalSpent: 249.99,
+        averageRating: 4.73,
+    },
+    preferences: {
+        theme: 'dark',
+        locale: 'uk-UA',
+        notifications: true,
+    },
+};
 
-    // Validate shape and business rules — ignore volatile fields (exact id, timestamps, counts)
+test('API response matches its expected shape and business rules', () => {
     expect(apiResponse).toEqual(
         {
             id: expect.any(Number),
@@ -126,8 +139,9 @@ test('validate fake API response with asymmetric matchers', () => {
             preferences: expect.anything(),
         },
     );
+});
 
-    // Every tag must be a string — order and extra tags do not matter
+test('every API response tag is a string', () => {
     expect(apiResponse.tags).toEqual(expect.arrayOf(expect.any(String)));
 });
 
@@ -142,3 +156,4 @@ test('docs example: expect.arrayOf(String) does not work in Playwright', () => {
 test('docs example: expect.arrayOf(Number) does not work in Playwright', () => {
     expect([1, 2, 3]).toEqual(expect.arrayOf(Number));
 });
+
