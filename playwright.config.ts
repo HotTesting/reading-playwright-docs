@@ -24,7 +24,7 @@ export default defineConfig({
   retries: 0,
   workers: 2,
   use: {
-    headless: false,
+    headless: process.env.CI === 'true',
   },
   reporter: [
     ['html', 
