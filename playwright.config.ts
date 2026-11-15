@@ -14,6 +14,9 @@ const getReportersArray = () => {
 
 export default defineConfig({
   captureGitInfo: { commit: true, diff: true },
+  metadata: {
+    custommetadata: 'Hello world!'
+  },
   testDir: './tests',
   testMatch: /.*\.test\.ts/,
   fullyParallel: true,
