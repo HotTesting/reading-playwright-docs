@@ -28,9 +28,7 @@ export default defineConfig({
       {
         title: 'Hello Reading Playwright Docs guys!',
         mergeFiles: false,
-         open: 'never',
-        // onlyFailures: true,
-        // outputFolder: 'reports/playwright-report-' + Date.now(),
+        open: 'never',
       }
     ],
     ['github', { omitTags: true }]
