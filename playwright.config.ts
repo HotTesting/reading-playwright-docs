@@ -14,6 +14,9 @@ const getReportersArray = () => {
 
 export default defineConfig({
   captureGitInfo: { commit: true, diff: true },
+  metadata: {
+    custommetadata: 'Hello world!'
+  },
   testDir: './tests',
   testMatch: /.*\.test\.ts/,
   fullyParallel: true,
@@ -21,16 +24,14 @@ export default defineConfig({
   retries: 0,
   workers: 2,
   use: {
-    headless: false,
+    headless: process.env.CI === 'true',
   },
   reporter: [
     ['html', 
       {
         title: 'Hello Reading Playwright Docs guys!',
         mergeFiles: false,
-         open: 'never',
-        // onlyFailures: true,
-        // outputFolder: 'reports/playwright-report-' + Date.now(),
+        open: 'never',
       }
     ],
     ['github', { omitTags: true }]
